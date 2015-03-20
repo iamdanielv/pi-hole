@@ -1,9 +1,9 @@
 #!/bin/bash
 # The Pi-hole now blocks over 120,000 ad domains
 # Address to send ads to (the RPi)
-piholeIP="127.0.0.1"
+#piholeIP="127.0.0.1"
 # Optionally, uncomment to automatically detect the address.  Thanks Gregg
-#piholeIP=$(ifconfig eth0 | awk '/inet addr/{print substr($2,6)}')
+piholeIP=$(ifconfig eth0 | awk '/inet addr/{print substr($2,6)}')
 
 # Config file to hold URL rules
 eventHorizion="/etc/dnsmasq.d/adList.conf"
