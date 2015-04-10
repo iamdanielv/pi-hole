@@ -1,9 +1,8 @@
 #!/bin/bash
 # The Pi-hole now blocks over 120,000 ad domains
 # Address to send ads to (the RPi)
-#piholeIP="127.0.0.1"
 # Optionally, uncomment to automatically detect the address.  Thanks Gregg
-piholeIP=$(ifconfig eth0 | awk '/inet addr/{print substr($2,6)}')
+piholeIP=$(hostname -I)
 
 # Config file to hold URL rules
 eventHorizion="/etc/dnsmasq.d/adList.conf"
@@ -38,9 +37,9 @@ curl -A 'Mozilla/5.0 (X11; Linux x86_64; rv:30.0) Gecko/20100101 Firefox/30.0' -
 # Add entries from the local blacklist file if it exists in /etc/pihole directory
 if [[ -f $blacklist ]];then
         echo "Getting the local blacklist from /etc/pihole directory"
-        cat /etc/pihole/blacklist.txt >> /tmp/matter.txt
+        cat $blacklist >> /tmp/matter.txt
 else
-        echo "No local blacklist.txt file available on /etc/pihole directory"
+        :
 fi
 
 # Sort the aggregated results and remove any duplicates
